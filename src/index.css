@@ -1,0 +1,224 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    @apply font-sans antialiased;
+    background: #F0F4FF;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* ── Support mode overlays ── */
+  .support-banner {
+    @apply rounded-xl px-5 py-4 flex items-start gap-3 mb-5 animate-slide-down;
+  }
+
+  /* ── Simplification mode field styling ── */
+  .simplify-field {
+    @apply bg-blue-50 border-2 border-blue-200 rounded-xl p-4 mb-4 transition-all duration-300;
+  }
+
+  .simplify-field:focus-within {
+    @apply border-blue-400 shadow-lg shadow-blue-100;
+  }
+
+  /* ── Contextual tooltip ── */
+  .ctx-tooltip {
+    @apply absolute z-50 bg-slate-900 text-white text-xs rounded-lg px-3 py-2 shadow-xl;
+    bottom: calc(100% + 8px);
+    left: 0;
+    min-width: 220px;
+    max-width: 280px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .ctx-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 16px;
+    border: 5px solid transparent;
+    border-top-color: #0f172a;
+  }
+
+  .field-wrap:hover .ctx-tooltip,
+  .field-wrap:focus-within .ctx-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Guided walkthrough highlight ── */
+  .guided-active {
+    @apply ring-2 ring-amber-400 ring-offset-2 rounded-xl;
+    animation: guidedPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes guidedPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(251, 191, 36, 0); }
+  }
+
+  /* ── Navigation quick-links ── */
+  .nav-quicklink {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium
+           bg-violet-50 text-violet-700 border border-violet-200 cursor-pointer
+           hover:bg-violet-100 transition-colors duration-150;
+  }
+
+  /* ── Metric card ── */
+  .metric-card {
+    @apply bg-white rounded-xl p-3 border border-slate-100 flex flex-col gap-1;
+  }
+
+  /* ── Step tab ── */
+  .step-dot {
+    @apply w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-300;
+  }
+
+  /* ── Form input overrides for Ant Design ── */
+  .ant-input, .ant-select-selector, .ant-picker, .ant-input-number {
+    @apply !rounded-xl !border-slate-200 !font-sans;
+  }
+
+  .ant-input:hover, .ant-select-selector:hover {
+    @apply !border-blue-300;
+  }
+
+  .ant-input:focus, .ant-input-focused {
+    @apply !border-blue-500 !shadow-none;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.12) !important;
+  }
+
+  /* Support mode: simplification ── inputs get a warm backdrop */
+  .mode-simplify .ant-input,
+  .mode-simplify .ant-select-selector {
+    @apply !bg-sky-50 !border-sky-200;
+  }
+
+  /* ── Progress bar ── */
+  .prob-bar-track {
+    @apply h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200;
+  }
+
+  .prob-bar-fill {
+    @apply h-full rounded-full transition-all duration-700 ease-out;
+  }
+
+  /* ── Log entry ── */
+  .log-line {
+    @apply text-xs font-mono px-2 py-0.5 border-b border-slate-100 last:border-0;
+    font-size: 10.5px;
+  }
+
+  /* ── Pulse dot ── */
+  .live-dot {
+    @apply w-2 h-2 rounded-full bg-emerald-400;
+    animation: livePulse 1.4s ease-in-out infinite;
+  }
+
+  @keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  /* ── AI decision badge ── */
+  .ai-decision-glow {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+    animation: decisionGlow 1s ease-out 3;
+  }
+
+  @keyframes decisionGlow {
+    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+    100% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+  }
+
+  .ai-success-glow {
+    animation: successGlow 0.6s ease-out;
+  }
+
+  @keyframes successGlow {
+    0% { transform: scale(0.96); }
+    60% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+}
+
+/* ── Ant Design global overrides ── */
+.ant-form-item-label > label {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: #64748b !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+.ant-form-item {
+  margin-bottom: 20px !important;
+}
+
+.ant-input, .ant-select-selector, .ant-picker {
+  font-size: 16px !important;
+  padding: 9px 13px !important;
+  min-height: 44px !important;
+}
+
+select {
+  font-size: 16px !important;
+}
+
+.ant-select-selector {
+  align-items: center !important;
+}
+
+.ant-steps-item-title {
+  font-size: 12px !important;
+}
+
+.ant-radio-button-wrapper {
+  border-radius: 10px !important;
+  margin-right: 8px !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+}
+
+#form-zoom-target {
+  max-width: 100%;
+  transform-origin: top center;
+}
+
+.a11y-page-shell {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
