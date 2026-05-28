@@ -1043,7 +1043,6 @@ export function StepDocuments({
       section: "Skills & Information",
       fields: [
         ["Skills selected", skillsDisplay],
-        ["Preferred role", values.preferredRole],
         ["Salary expectation", salaryDisplay],
         ["Availability date", values.availabilityDate],
         ["Work arrangement", values.workArrangement],
